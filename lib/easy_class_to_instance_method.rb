@@ -1,9 +1,13 @@
-require 'active_support/concern'
 require 'easy_class_to_instance_method/version'
 require 'easy_class_to_instance_method/core_ext/extends_class'
 
 module EasyClassToInstanceMethod
-  extend ActiveSupport::Concern
+
+  def self.included(base)
+    base.class_eval do
+      extend ClassMethods
+    end
+  end
 
   module ClassMethods
     def method_missing(method_name, *args, &block)
